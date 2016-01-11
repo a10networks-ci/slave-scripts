@@ -3,6 +3,10 @@
 GATE_DEST=$BASE/new
 DEVSTACK_PATH=$GATE_DEST/devstack
 
+ls /opt/stack
+ls /opt/stack/new
+
+
 if [ "$testenv" = "apiv1" ]; then
     ENABLED_SERVICES="-c-api,-c-bak,-c-sch,-c-vol,-cinder"
     ENABLED_SERVICES+=",-s-account,-s-container,-s-object,-s-proxy"
