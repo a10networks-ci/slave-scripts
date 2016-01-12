@@ -8,6 +8,12 @@ ls /opt/stack/new
 
 env
 
+testenv=${2:-"apiv2"}
+if [ "$1" = "lbaasv1" ]; then
+    testenv="apiv1"
+elif [ "$1" = "lbaasv2" ]; then
+    testenv="apiv2"
+fi
 
 if [ "$testenv" = "apiv1" ]; then
     ENABLED_SERVICES="-c-api,-c-bak,-c-sch,-c-vol,-cinder"
