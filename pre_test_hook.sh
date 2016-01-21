@@ -25,7 +25,6 @@ else
 fi
 
 echo "Writing private config.py"
-set +x
 sudo mkdir -p /etc/a10
 sudo chmod a+rwx /etc/a10
 cat - > /etc/a10/config.py <<EOF
@@ -40,7 +39,7 @@ devices = {
     },
 }
 EOF
-set -x
+sudo ln -s /etc/a10 /etc/neutron/a10
 
 # python $WORKSPACE/neutron-thirdparty-ci/ax/ax_setup.py
 

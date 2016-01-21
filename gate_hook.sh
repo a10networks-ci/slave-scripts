@@ -3,11 +3,6 @@
 GATE_DEST=$BASE/new
 DEVSTACK_PATH=$GATE_DEST/devstack
 
-ls /opt/stack
-ls /opt/stack/new
-
-env
-
 testenv=${2:-"apiv2"}
 if [ "$1" = "lbaasv1" ]; then
     testenv="apiv1"
@@ -36,5 +31,8 @@ else
 service_provider=LOADBALANCER:A10Networks:neutron_lbaas.services.loadbalancer.drivers.a10networks.driver_v1.ThunderDriver:default
 EOF
 fi
+
+echo "foobar"
+cat $DEVSTACK_PATH/local.conf
 
 $BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/gate_hook.sh "$1" "$2"
