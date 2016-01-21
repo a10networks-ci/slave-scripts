@@ -8,4 +8,4 @@ ls $BASE/new/neutron-lbaas/neutron_lbaas
 ls $BASE/new/neutron-lbaas/neutron_lbaas/tests
 ls $BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib
 
-. $BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/post_test_hook.sh "$1" "$2"
+$BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/post_test_hook.sh "$1" "$2"

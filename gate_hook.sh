@@ -37,4 +37,4 @@ service_provider=LOADBALANCER:A10Networks:neutron_lbaas.services.loadbalancer.dr
 EOF
 fi
 
-. $BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/gate_hook.sh "$1" "$2"
+$BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/gate_hook.sh "$1" "$2"
