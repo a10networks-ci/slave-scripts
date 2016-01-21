@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash -x
 
 ## A10 Software and config
 
@@ -12,6 +12,7 @@ if [ -n "$A10_NEUTRON_LBAAS_GIT" ]; then
 else
     sudo pip install -U a10-neutron-lbaas
 fi
+set -e
 
 # Make sure we have a configuration
 
