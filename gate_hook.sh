@@ -35,4 +35,4 @@ fi
 echo "foobar"
 cat $DEVSTACK_PATH/local.conf
 
-$BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/gate_hook.sh "$1" "$2"
+bash -x $BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/gate_hook.sh "$1" "$2"
