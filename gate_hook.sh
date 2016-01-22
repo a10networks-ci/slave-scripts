@@ -18,14 +18,14 @@ fi
 
 if [ "$testenv" = "apiv2" ]; then
     cat > $DEVSTACK_PATH/local.conf <<EOF
-[[post-config|$NEUTRON_LBAAS_CONF]]
+[[post-config|\$NEUTRON_LBAAS_CONF]]
 
 [service_providers]
 service_provider=LOADBALANCERV2:A10Networks:neutron_lbaas.drivers.a10networks.driver_v2.ThunderDriver:default
 EOF
 else
     cat > $DEVSTACK_PATH/local.conf <<EOF
-[[post-config|$NEUTRON_LBAAS_CONF]]
+[[post-config|\$NEUTRON_LBAAS_CONF]]
 
 [service_providers]
 service_provider=LOADBALANCER:A10Networks:neutron_lbaas.services.loadbalancer.drivers.a10networks.driver_v1.ThunderDriver:default
