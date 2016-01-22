@@ -35,4 +35,9 @@ fi
 echo "foobar"
 cat $DEVSTACK_PATH/local.conf
 
-bash -x $BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/gate_hook.sh "$1" "$2"
+export DEVSTACK_LOCAL_CONFIG+="
+enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas
+"
+
+# bash -x $BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/gate_hook.sh "$1" "$2"
+bash -x $GATE_DEST/devstack-gate/devstack-vm-gate.sh
