@@ -10,30 +10,25 @@ elif [ "$1" = "lbaasv2" ]; then
     testenv="apiv2"
 fi
 
-if [ "$testenv" = "apiv1" ]; then
-    ENABLED_SERVICES="-c-api,-c-bak,-c-sch,-c-vol,-cinder"
-    ENABLED_SERVICES+=",-s-account,-s-container,-s-object,-s-proxy"
-    export ENABLED_SERVICES
-fi
+ENABLED_SERVICES="-c-api,-c-bak,-c-sch,-c-vol,-cinder"
+ENABLED_SERVICES+=",-s-account,-s-container,-s-object,-s-proxy"
+export ENABLED_SERVICES
 
-if [ "$testenv" = "apiv2" ]; then
-    cat > $DEVSTACK_PATH/local.conf <<EOF
-[[post-config|\$NEUTRON_LBAAS_CONF]]
+# if [ "$testenv" = "apiv2" ]; then
+#     cat > $DEVSTACK_PATH/local.conf <<EOF
+# [[post-config|\$NEUTRON_LBAAS_CONF]]
 
-[service_providers]
-service_provider=LOADBALANCERV2:A10Networks:neutron_lbaas.drivers.a10networks.driver_v2.ThunderDriver:default
-EOF
-else
-    cat > $DEVSTACK_PATH/local.conf <<EOF
-[[post-config|\$NEUTRON_LBAAS_CONF]]
+# [service_providers]
+# service_provider=LOADBALANCERV2:A10Networks:neutron_lbaas.drivers.a10networks.driver_v2.ThunderDriver:default
+# EOF
+# else
+#     cat > $DEVSTACK_PATH/local.conf <<EOF
+# [[post-config|\$NEUTRON_LBAAS_CONF]]
 
-[service_providers]
-service_provider=LOADBALANCER:A10Networks:neutron_lbaas.services.loadbalancer.drivers.a10networks.driver_v1.ThunderDriver:default
-EOF
-fi
-
-echo "foobar"
-cat $DEVSTACK_PATH/local.conf
+# [service_providers]
+# service_provider=LOADBALANCER:A10Networks:neutron_lbaas.services.loadbalancer.drivers.a10networks.driver_v1.ThunderDriver:default
+# EOF
+# fi
 
 export DEVSTACK_LOCAL_CONFIG+="
 enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas
