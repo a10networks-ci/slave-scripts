@@ -33,3 +33,6 @@
 #     | perl -ne '/"PrivateIpAddress": "(.*?)"/ && print "$1\n";' \
 #     > ~/.a10-private-ip
 
+## xxx: temporary
+
+echo "10.48.1.51 area51.boi.a10networks.com area51" | sudo tee -a /etc/hosts
