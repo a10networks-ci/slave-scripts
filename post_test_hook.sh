@@ -1,4 +1,4 @@
-#!/bin/sh -xe
+#!/bin/bash -xe
 
 TEMPEST_CONFIG_DIR="$BASE/new/tempest/etc"
 
