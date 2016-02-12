@@ -36,12 +36,8 @@ fi
 # Make sure we have a configuration
 
 AXAPI_VERSION=${AXAPI_VERSION:-2.1}
-
-if [ "$AXAPI_VERSION" = "2.1" ]; then
-  AXAPI_HOST=10.48.51.226
-else
-  AXAPI_HOST=10.48.51.227
-fi
+AXAPI_ID=$(cat ~/.a10-instance-id)
+AXAPI_HOST=$(curl "http://10.48.1.51/cgi-bin/a10-vm?ipaddress&id=$AXAPI_ID")
 
 echo "Writing private config.py"
 sudo mkdir -p /etc/a10

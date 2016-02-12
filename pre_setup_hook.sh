@@ -36,3 +36,15 @@
 ## xxx: temporary
 
 echo "10.48.1.51 area51.boi.a10networks.com area51" | sudo tee -a /etc/hosts
+
+# Spawn an A10 appliance
+
+if [ -z "$VTHUNDER_IMAGE_ID" ]; then
+  if [ "$ACOS_VERSION" = "272" ]; then
+    VTHUNDER_IMAGE_ID="0b960108-5244-47a4-9e0f-e342e802164b"
+  elif [ "$ACOS_VERSION" = "401" ]; then
+    VTHUNDER_IMAGE_ID="c6b522c4-e961-456c-885c-eb25f8b072fe"
+  fi
+fi
+id=$(curl "http://10.48.1.51/cgi-bin/a10-vm?create&image_id=$VTHUNDER_IMAGE_ID")
+echo $id > ~/.a10-instance-id
