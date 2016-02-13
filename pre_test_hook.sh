@@ -3,6 +3,13 @@
 GATE_DEST=$BASE/new
 DEVSTACK_PATH=$GATE_DEST/devstack
 
+testenv=${2:-"apiv2"}
+if [ "$1" = "lbaasv1" ]; then
+    testenv="apiv1"
+elif [ "$1" = "lbaasv2" ]; then
+    testenv="apiv2"
+fi
+
 ## A10 Software and config
 
 if [ -n "$ACOS_CLIENT_GIT" ]; then
