@@ -60,6 +60,18 @@ else
     exit 1
 fi
 
+# Migrate DB
+echo "Migrating neutron database with A10 tables"
+
+set +e
+which a10-neutron-lbaas-db-manage > /dev/null
+r=$?
+set -e
+
+if [ $r -eq 0 ]; then
+    a10-neutron-lbaas-db-manage install
+fi
+
 # Run tests
 echo "Running neutron lbaas $testenv test suite"
 set +e
