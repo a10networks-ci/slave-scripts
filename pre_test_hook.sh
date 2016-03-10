@@ -21,7 +21,7 @@ if [ -n "$ACOS_CLIENT_GIT" ]; then
         cd acos-client && \
         git checkout -b "$ghprbSourceBranch" master && \
         git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch" && \
-        pip install .
+        sudo -H pip install .
         if [ $? -eq 0 ]; then
             CONTINUE=true
         fi
@@ -37,14 +37,14 @@ else
         CONTINUE=true
     fi
 fi
-if [ -n "$A10_NEUTRON_LBAAS_GIT" ]; then
+if [ "$CONTINUE" = "true" -a -n "$A10_NEUTRON_LBAAS_GIT" ]; then
     if [ -n "$ghprbPullLink" ]; then
         cd /tmp && \
         git clone "$A10_NEUTRON_LBAAS_GIT" && \
         cd a10-neutron-lbaas && \
         git checkout -b "$ghprbSourceBranch" master && \
         git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch" && \
-        pip install .
+        sudo -H pip install .
         if [ $? -ne 0 ]; then
             CONTINUE=false
         fi
