@@ -12,15 +12,58 @@ fi
 
 ## A10 Software and config
 
+CONTINUE=false
+
 if [ -n "$ACOS_CLIENT_GIT" ]; then
-    sudo -H pip install -e "git+${ACOS_CLIENT_GIT}#egg=acos_client"
+    if [ -n "$ghprbPullLink" ]; then
+        cd /tmp && \
+        git clone "$ACOS_CLIENT_GIT" && \
+        cd acos-client && \
+        git checkout -b "$ghprbSourceBranch" master && \
+        git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch" && \
+        pip install .
+        if [ $? -eq 0 ]; then
+            CONTINUE=true
+        fi
+    else
+        sudo -H pip install -e "git+${ACOS_CLIENT_GIT}#egg=acos_client"
+        if [ $? -eq 0 ]; then
+            CONTINUE=true
+        fi
+    fi
 else
     sudo -H pip install -U acos-client
+    if [ $? -eq 0 ]; then
+        CONTINUE=true
+    fi
 fi
 if [ -n "$A10_NEUTRON_LBAAS_GIT" ]; then
-    sudo -H pip install -e "git+${A10_NEUTRON_LBAAS_GIT}#egg=a10_neutron_lbaas"
+    if [ -n "$ghprbPullLink" ]; then
+        cd /tmp && \
+        git clone "$A10_NEUTRON_LBAAS_GIT" && \
+        cd a10-neutron-lbaas && \
+        git checkout -b "$ghprbSourceBranch" master && \
+        git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch" && \
+        pip install .
+        if [ $? -ne 0 ]; then
+            CONTINUE=false
+        fi
+    else
+        sudo -H pip install -e "git+${A10_NEUTRON_LBAAS_GIT}#egg=a10_neutron_lbaas"
+        if [ $? -ne 0 ]; then
+            CONTINUE=false
+        fi
+    fi
 else
     sudo -H pip install -U a10-neutron-lbaas
+    if [ $? -ne 0 ]; then
+        CONTINUE=false
+    fi
+fi
+
+if [ "$CONTINUE" != "true" ]; then
+    echo "ERROR: a10 package install failed"
+    exit 1
 fi
 set -e
 
