@@ -10,61 +10,35 @@ elif [ "$1" = "lbaasv2" ]; then
     testenv="apiv2"
 fi
 
+install_python_pkg() {
+    if [ -n "$2" ]; then
+        set -e
+        cd /tmp
+        git clone "$2"
+        cd $1
+        set +e
+        if [ -n "$ghprbPullLink" ]; then
+            set -e
+            git checkout -b "$ghprbSourceBranch" master
+            git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch"
+            set +e
+        elif [ "$ZUUL_BRANCH" != "master" ]; then
+            # ignore errors here -- no stable branch means use master
+            git checkout "$ZUUL_BRANCH"
+        fi
+        set -e
+        sudo -H pip install .
+    else
+        set -e
+        sudo -H pip install -U $1
+    fi
+}
+
 ## A10 Software and config
 
-CONTINUE=false
+install_python_pkg acos-client "$ACOS_CLIENT_GIT"
+install_python_pkg a10-neutron-lbaas "$A10_NEUTRON_LBAAS_GIT"
 
-if [ -n "$ACOS_CLIENT_GIT" ]; then
-    if [ -n "$ghprbPullLink" ]; then
-        cd /tmp && \
-        git clone "$ACOS_CLIENT_GIT" && \
-        cd acos-client && \
-        git checkout -b "$ghprbSourceBranch" master && \
-        git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch" && \
-        sudo -H pip install .
-        if [ $? -eq 0 ]; then
-            CONTINUE=true
-        fi
-    else
-        sudo -H pip install -e "git+${ACOS_CLIENT_GIT}#egg=acos_client"
-        if [ $? -eq 0 ]; then
-            CONTINUE=true
-        fi
-    fi
-else
-    sudo -H pip install -U acos-client
-    if [ $? -eq 0 ]; then
-        CONTINUE=true
-    fi
-fi
-if [ "$CONTINUE" = "true" -a -n "$A10_NEUTRON_LBAAS_GIT" ]; then
-    if [ -n "$ghprbPullLink" ]; then
-        cd /tmp && \
-        git clone "$A10_NEUTRON_LBAAS_GIT" && \
-        cd a10-neutron-lbaas && \
-        git checkout -b "$ghprbSourceBranch" master && \
-        git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch" && \
-        sudo -H pip install .
-        if [ $? -ne 0 ]; then
-            CONTINUE=false
-        fi
-    else
-        sudo -H pip install -e "git+${A10_NEUTRON_LBAAS_GIT}#egg=a10_neutron_lbaas"
-        if [ $? -ne 0 ]; then
-            CONTINUE=false
-        fi
-    fi
-else
-    sudo -H pip install -U a10-neutron-lbaas
-    if [ $? -ne 0 ]; then
-        CONTINUE=false
-    fi
-fi
-
-if [ "$CONTINUE" != "true" ]; then
-    echo "ERROR: a10 package install failed"
-    exit 1
-fi
 set -e
 
 if [ "$testenv" != "apiv1" ]; then
