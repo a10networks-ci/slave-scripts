@@ -19,6 +19,7 @@ install_python_pkg() {
         set +e
         if [ -n "$ghprbPullLink" ]; then
             set -e
+            env
             git checkout -b "$ghprbSourceBranch" master
             git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch"
             set +e
