@@ -20,7 +20,9 @@ install_python_pkg() {
         if [ -n "$ghprbPullLink" ]; then
             set -e
             env
-            git checkout -b "$ghprbSourceBranch" master
+            if [ "$ghprbSourceBranch" != "master" ]; then
+                git checkout -b "$ghprbSourceBranch" master
+            fi
             git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch"
             set +e
         elif [ "$ZUUL_BRANCH" != "master" ]; then
