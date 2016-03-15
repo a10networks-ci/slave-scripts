@@ -80,6 +80,7 @@ if [ "$ZUUL_BRANCH" != "stable/kilo" ]; then
     sudo -H -u $owner $sudo_env tox -e $testenv -- $test_subset
 else
     # Pull a version of standalone tempest that still had the old tests
+    set -e
     cd /tmp
     git clone https://github.com/openstack/tempest.git
     cd tempest
@@ -89,8 +90,11 @@ else
     virtualenv v
     . v/bin/activate
     pip install -e tempest/
+    set +e
 
-    TEMPEST_CONFIG_DIR=/opt/stack/tempest/etc
+    cat /etc/tempest/tempest.conf
+
+    export TEMPEST_CONFIG_DIR=/opt/stack/tempest/etc
     TEMPEST_REGEX='(?!.*\[.*\bslow\b.*\])(tempest.api.network|tempest.cli.simple_read_only.test_neutron)(?!.*(lbaas_agent))'
     cd tempest
     testr init
