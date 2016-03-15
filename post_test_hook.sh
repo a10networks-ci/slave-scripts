@@ -76,9 +76,18 @@ fi
 echo "Running neutron lbaas $testenv test suite"
 set +e
 
-sudo -H -u $owner $sudo_env tox -e $testenv -- $test_subset
-# sudo -H -u $owner $sudo_env testr init
-# sudo -H -u $owner $sudo_env testr run
+if [ "$ZUUL_BRANCH" != "stable/kilo" ]; then
+    sudo -H -u $owner $sudo_env tox -e $testenv -- $test_subset
+else
+    # Pull a version of standalone tempest that still had the old tests
+    cd /tmp
+    git clone https://github.com/openstack/tempest.git
+    cd tempest
+    git reset --hard 4209ecfa60b96b35c8c1c74fcf4e0b34d96ae4cb
+    sudo pip install -e .
+    sudo -H -u $owner $sudo_env testr init
+    sudo -H -u $owner $sudo_env testr run
+fi
 
 testr_exit_code=$?
 set -e
