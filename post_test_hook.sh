@@ -91,8 +91,7 @@ else
     pip install -e tempest/
 
     TEMPEST_REGEX='(?!.*\[.*\bslow\b.*\])(tempest.api.network|tempest.cli.simple_read_only.test_neutron)(?!.*(lbaas_agent))'
-    mkdir t
-    cd t
+    cd tempest
     testr init
     testr --regex "$TEMPEST_REGEX"
 fi
