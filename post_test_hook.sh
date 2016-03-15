@@ -89,11 +89,12 @@ else
     virtualenv v
     . v/bin/activate
     pip install -e tempest/
-    tempest init t
-    cd t
 
     TEMPEST_REGEX='(?!.*\[.*\bslow\b.*\])(tempest.api.network|tempest.cli.simple_read_only.test_neutron)(?!.*(lbaas_agent))'
-    ostestr --regex "$TEMPEST_REGEX"
+    mkdir t
+    cd t
+    testr init
+    testr --regex "$TEMPEST_REGEX"
 fi
 
 testr_exit_code=$?
