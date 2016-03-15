@@ -90,10 +90,11 @@ else
     . v/bin/activate
     pip install -e tempest/
 
+    TEMPEST_CONFIG_DIR=/opt/stack/tempest/etc
     TEMPEST_REGEX='(?!.*\[.*\bslow\b.*\])(tempest.api.network|tempest.cli.simple_read_only.test_neutron)(?!.*(lbaas_agent))'
     cd tempest
     testr init
-    testr --regex "$TEMPEST_REGEX"
+    testr run "$TEMPEST_REGEX"
 fi
 
 testr_exit_code=$?
