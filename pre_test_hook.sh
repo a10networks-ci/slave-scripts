@@ -25,9 +25,9 @@ install_python_pkg() {
             fi
             git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch"
             set +e
-        elif [ "$ZUUL_BRANCH" != "master" ]; then
-            # ignore errors here -- no stable branch means use master
-            git checkout "$ZUUL_BRANCH"
+        # elif [ "$ZUUL_BRANCH" != "master" ]; then
+        #     # ignore errors here -- no stable branch means use master
+        #     git checkout "$ZUUL_BRANCH"
         fi
         set -e
         sudo -H pip install .
