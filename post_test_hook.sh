@@ -84,9 +84,16 @@ else
     git clone https://github.com/openstack/tempest.git
     cd tempest
     git reset --hard 4209ecfa60b96b35c8c1c74fcf4e0b34d96ae4cb
-    sudo pip install -e .
-    sudo -H -u $owner $sudo_env testr init
-    sudo -H -u $owner $sudo_env testr run
+    cd ..
+    mkdir v
+    virtualenv v
+    . v/bin/activate
+    pip install -e tempest/
+    tempest init t
+    cd t
+
+    TEMPEST_REGEX='(?!.*\[.*\bslow\b.*\])(tempest.api.network|tempest.cli.simple_read_only.test_neutron)(?!.*(lbaas_agent))'
+    ostestr --regex "$TEMPEST_REGEX"
 fi
 
 testr_exit_code=$?
