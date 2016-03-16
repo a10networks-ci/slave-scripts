@@ -97,7 +97,7 @@ else
     sudo ln -s $TEMPEST_CONFIG_DIR /etc/tempest
     cat /etc/tempest/tempest.conf
     TEMPEST_REGEX='(?!.*\[.*\bslow\b.*\])(tempest.api.network|tempest.cli.simple_read_only.test_neutron)(?!.*(lbaas_agent))'
-    cd tempest/tempest
+    cd tempest
     testr init
     testr run "$TEMPEST_REGEX"
 fi
