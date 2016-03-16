@@ -101,8 +101,8 @@ else
     cat /etc/tempest/tempest.conf
     TEMPEST_REGEX='(?!.*\[.*\bslow\b.*\])(tempest.api.network|tempest.cli.simple_read_only.test_neutron)(?!.*(lbaas_agent))'
     cd tempest
-    testr init
-    testr run "$TEMPEST_REGEX"
+    sudo -H -u $owner $sudo_env testr init
+    sudo -H -u $owner $sudo_env testr run "$TEMPEST_REGEX"
 fi
 
 testr_exit_code=$?
