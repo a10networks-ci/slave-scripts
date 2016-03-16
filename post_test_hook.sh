@@ -95,7 +95,7 @@ else
     ls /opt/stack/new/tempest/etc
     ls /opt/stack/tempest/etc
     cat /etc/tempest/tempest.conf
-    export TEMPEST_CONFIG_DIR=/opt/stack/tempest/etc
+    export TEMPEST_CONFIG_DIR=/opt/stack/new/tempest/etc
     sudo ln -s $TEMPEST_CONFIG_DIR /etc/tempest
     ls /etc/tempest/
     cat /etc/tempest/tempest.conf
