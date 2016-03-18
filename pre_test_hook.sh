@@ -81,7 +81,7 @@ devices = {
     },
 }
 EOF
-sudo ln -s /etc/a10 /etc/neutron
 
-# python $WORKSPACE/neutron-thirdparty-ci/ax/ax_setup.py
-
+if [ -n "$A10_USE_DATABASE" ]; then
+    echo "use_database = True" >> /etc/a10/config.py
+fi
