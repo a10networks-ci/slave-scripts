@@ -68,14 +68,15 @@ which a10-manage > /dev/null
 r=$?
 which a10-neutron-lbaas-db-manage > /dev/null
 r2=$?
-set -e
 
 if [ $r -eq 0 ]; then
     n=$(grep -c use_database /etc/a10/config.py)
     if [ $n -gt 0 ]; then
+        set -e
         a10-manage install
     fi
 elif [ $r2 -eq 0 ]; then
+    set -e
     a10-neutron-lbaas-db-manage install
 fi
 
