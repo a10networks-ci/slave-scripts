@@ -23,7 +23,6 @@ install_python_pkg() {
             pull_repo=$(echo $ghprbAuthorRepoGitUrl | perl -ne '/([^\/]+)$/ && print "$1";' | sed -e 's/\.git//')
             if [ "$src_repo" = "$pull_repo" ]; then
                 set -e
-                env
                 if [ "$ghprbSourceBranch" != "master" ]; then
                     git checkout -b "$ghprbSourceBranch" master
                 fi
