@@ -17,14 +17,19 @@ install_python_pkg() {
         git clone "$2"
         cd $1
         set +e
+
         if [ -n "$ghprbPullLink" ]; then
-            set -e
-            env
-            if [ "$ghprbSourceBranch" != "master" ]; then
-                git checkout -b "$ghprbSourceBranch" master
+            src_repo=$(echo "$2" | perl -ne '/([^\/]+)$/ && print "$1";' | sed -e 's/\.git//')
+            pull_repo=$(echo $ghprbAuthorRepoGitUrl | perl -ne '/([^\/]+)$/ && print "$1";' | sed -e 's/\.git//')
+            if [ "$src_repo" = "$pull_repo" ]; then
+                set -e
+                env
+                if [ "$ghprbSourceBranch" != "master" ]; then
+                    git checkout -b "$ghprbSourceBranch" master
+                fi
+                git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch"
+                set +e
             fi
-            git pull "$ghprbAuthorRepoGitUrl" "$ghprbSourceBranch"
-            set +e
         # elif [ "$ZUUL_BRANCH" != "master" ]; then
         #     # ignore errors here -- no stable branch means use master
         #     git checkout "$ZUUL_BRANCH"
