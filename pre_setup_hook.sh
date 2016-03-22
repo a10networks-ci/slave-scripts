@@ -43,9 +43,11 @@ if [ -z "$VTHUNDER_IMAGE_ID" ]; then
   if [ "$ACOS_VERSION" = "272" ]; then
     VTHUNDER_IMAGE_ID="0b960108-5244-47a4-9e0f-e342e802164b"
   elif [ "$ACOS_VERSION" = "401" ]; then
-    VTHUNDER_IMAGE_ID="c6b522c4-e961-456c-885c-eb25f8b072fe"
+    VTHUNDER_IMAGE_ID="1df4bf9c-7db3-4ac0-a664-ad03a73554c4"
+  elif [ "$ACOS_VERSION" = "403" ]; then
+    VTHUNDER_IMAGE_ID="e121a9bd-fe05-47fe-84ec-56eb378b18c8"
   elif [ "$ACOS_VERSION" = "410" ]; then
-    VTHUNDER_IMAGE_ID="101de77e-1541-4486-833a-a256fa6ccc41"
+    VTHUNDER_IMAGE_ID="3e87ea10-76a4-46a2-936a-ca5281b2e246"
   fi
 fi
 id=$(curl "http://10.48.1.51/cgi-bin/a10-vm?create&image_id=$VTHUNDER_IMAGE_ID")
