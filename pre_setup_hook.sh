@@ -39,16 +39,5 @@ echo "10.48.1.51 area51.boi.a10networks.com area51" | sudo tee -a /etc/hosts
 
 # Spawn an A10 appliance
 
-if [ -z "$VTHUNDER_IMAGE_ID" ]; then
-  if [ "$ACOS_VERSION" = "272" ]; then
-    VTHUNDER_IMAGE_ID="0b960108-5244-47a4-9e0f-e342e802164b"
-  elif [ "$ACOS_VERSION" = "401" ]; then
-    VTHUNDER_IMAGE_ID="1df4bf9c-7db3-4ac0-a664-ad03a73554c4"
-  elif [ "$ACOS_VERSION" = "403" ]; then
-    VTHUNDER_IMAGE_ID="e121a9bd-fe05-47fe-84ec-56eb378b18c8"
-  elif [ "$ACOS_VERSION" = "410" ]; then
-    VTHUNDER_IMAGE_ID="f9dd7847-53d2-4bab-be32-b6be3b7c3b8e"
-  fi
-fi
-id=$(curl "http://10.48.1.51/cgi-bin/a10-vm?create&image_id=$VTHUNDER_IMAGE_ID")
+id=$(curl "http://10.48.1.51/cgi-bin/a10-vm?create&image_tag=acos-${ACOS_VERSION}")
 echo $id > ~/.a10-instance-id
