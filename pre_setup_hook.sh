@@ -47,7 +47,7 @@ if [ -z "$VTHUNDER_IMAGE_ID" ]; then
   elif [ "$ACOS_VERSION" = "403" ]; then
     VTHUNDER_IMAGE_ID="e121a9bd-fe05-47fe-84ec-56eb378b18c8"
   elif [ "$ACOS_VERSION" = "410" ]; then
-    VTHUNDER_IMAGE_ID="3e87ea10-76a4-46a2-936a-ca5281b2e246"
+    VTHUNDER_IMAGE_ID="f9dd7847-53d2-4bab-be32-b6be3b7c3b8e"
   fi
 fi
 id=$(curl "http://10.48.1.51/cgi-bin/a10-vm?create&image_id=$VTHUNDER_IMAGE_ID")
