@@ -8,13 +8,16 @@ DEVSTACK_PATH=$GATE_DEST/devstack
 export DEVSTACK_LOCAL_CONFIG+="
 enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas
 enable_plugin barbican https://git.openstack.org/openstack/barbican
-enable_plugin octavia https://git.openstack.org/openstack/octavia
+enable_plugin octavia https://git.openstack.org/openstack/octavia"
+
+cat >> $DEVSTACK_PATH/local.conf <<EOF
 
 [[post-config|/etc/octavia/octavia.conf]]
 
 [default]
 api_handler = a10_handler
-"
+
+EOF
 
 # Below projects are required for setting up environment
 case $PROJECTS in
