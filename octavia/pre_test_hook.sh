@@ -30,8 +30,8 @@ case $PROJECTS in
 esac
 
 # These are not needed for api and scenario tests
-ENABLED_SERVICES+="-c-api,-c-bak,-c-sch,-c-vol,-cinder"
-ENABLED_SERVICES+=",-s-account,-s-container,-s-object,-s-proxy"
+ENABLED_SERVICES+="-c-api,-c-bak,-c-sch,-c-vol,-cinder,"
+ENABLED_SERVICES+="-s-account,-s-container,-s-object,-s-proxy,"
 
 # Disable lbaasv1 and enable lbaasv2
 ENABLED_SERVICES+="q-lbaasv2,-q-lbaas,octavia,o-api"
