@@ -44,6 +44,7 @@ install_python_pkg() {
 ## A10 Software and config
 
 install_python_pkg acos-client "$ACOS_CLIENT_GIT"
+install_python_pkg a10-openstack-lib "$A10_OPENSTACK_LIB_GIT"
 install_python_pkg a10-neutron-lbaas "$A10_NEUTRON_LBAAS_GIT"
 
 set -e
