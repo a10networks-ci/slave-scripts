@@ -32,7 +32,9 @@ export ENABLED_SERVICES
 # service_provider=LOADBALANCER:A10Networks:neutron_lbaas.services.loadbalancer.drivers.a10networks.driver_v1.ThunderDriver:default
 # EOF
 # fi
-
+export DEVSTACK_LOCAL_CONFIG+="
+FORCE=yes
+"
 export DEVSTACK_LOCAL_CONFIG+="
 enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas
 "
