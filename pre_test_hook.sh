@@ -49,7 +49,7 @@ install_python_pkg a10-neutron-lbaas "$A10_NEUTRON_LBAAS_GIT"
 
 set -e
 if [ "$testenv" != "apiv1" ]; then
-    DEVSTACK_LOCAL_CONFIG+='
+    export DEVSTACK_LOCAL_CONFIG+='
 NEUTRON_LBAAS_SERVICE_PROVIDERV2="'$LBAAS2_PROVIDER'
 "'
     echo "LBAAS PROVIDER " $LBAAS2_PROVIDER
