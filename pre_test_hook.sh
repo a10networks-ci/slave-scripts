@@ -48,16 +48,18 @@ install_python_pkg a10-openstack-lib "$A10_OPENSTACK_LIB_GIT"
 install_python_pkg a10-neutron-lbaas "$A10_NEUTRON_LBAAS_GIT"
 
 set -e
-
+# Append, don't clobber
 if [ "$testenv" != "apiv1" ]; then
-    cat > $DEVSTACK_PATH/local.conf <<EOF
+    echo "lbaasv2"
+    cat >> $DEVSTACK_PATH/local.conf <<EOF
 [[post-config|\$NEUTRON_LBAAS_CONF]]
 
 [service_providers]
 service_provider=LOADBALANCERV2:A10Networks:neutron_lbaas.drivers.a10networks.driver_v2.ThunderDriver:default
 EOF
 else
-    cat > $DEVSTACK_PATH/local.conf <<EOF
+    echo "lbaasv1"
+    cat >> $DEVSTACK_PATH/local.conf <<EOF
 [[post-config|\$NEUTRON_LBAAS_CONF]]
 
 [service_providers]
