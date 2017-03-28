@@ -45,7 +45,8 @@ install_python_pkg() {
 install_python_pkg acos-client "$ACOS_CLIENT_GIT"
 install_python_pkg a10-openstack-lib "$A10_OPENSTACK_LIB_GIT"
 install_python_pkg a10-neutron-lbaas "$A10_NEUTRON_LBAAS_GIT"
-
+# That's (probably) not a typo. Bug in devstack interpreting env vars?
+export OVERRIDE_A0_NEUTRON_LBAAS_GIT_BASE="http://github.com"
 set -e
 
 # Make sure we have a configuration
