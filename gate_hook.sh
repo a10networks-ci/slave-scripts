@@ -6,12 +6,12 @@ ENABLED_SERVICES=""
 testenv=${2:-"apiv2"}
 if [ "$1" = "lbaasv1" ]; then
     testenv="apiv1"
-    ENABLED_SERVICES+="a10-lbaasv1"
+    ENABLED_SERVICES+="a10-lbaasv1,"
     echo "enabled a10-lbaasv1"
 
 elif [ "$1" = "lbaasv2" ]; then
     testenv="apiv2"
-    ENABLED_SERVICES+="a10-lbaasv2"
+    ENABLED_SERVICES+="a10-lbaasv2,"
     echo "enabled a10-lbaasv2"
 fi
 
