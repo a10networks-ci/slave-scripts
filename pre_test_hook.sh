@@ -2,7 +2,6 @@
 
 GATE_DEST=$BASE/new
 DEVSTACK_PATH=$GATE_DEST/devstack
-LBAAS2_PROVIDER="LOADBALANCERV2:A10Networks:neutron_lbaas.drivers.a10networks.driver_v2.ThunderDriver:default"
 testenv=${2:-"apiv2"}
 if [ "$1" = "lbaasv1" ]; then
     testenv="apiv1"
@@ -48,23 +47,6 @@ install_python_pkg a10-openstack-lib "$A10_OPENSTACK_LIB_GIT"
 install_python_pkg a10-neutron-lbaas "$A10_NEUTRON_LBAAS_GIT"
 
 set -e
-if [ "$testenv" != "apiv1" ]; then
-    export DEVSTACK_LOCAL_CONFIG+='
-NEUTRON_LBAAS_SERVICE_PROVIDERV2="'$LBAAS2_PROVIDER'
-"'
-    echo "LBAAS PROVIDER " $LBAAS2_PROVIDER
-    cat >> $DEVSTACK_PATH/local.conf <<EOF
-[[post-config|\$NEUTRON_LBAAS_CONF]]
-service_provider=$LBAAS2_PROVIDER
-EOF
-else
-    cat >> $DEVSTACK_PATH/local.conf <<EOF
-[[post-config|\$NEUTRON_LBAAS_CONF]]
-
-[service_providers]
-service_provider=LOADBALANCER:A10Networks:neutron_lbaas.services.loadbalancer.drivers.a10networks.driver_v1.ThunderDriver:default
-EOF
-fi
 
 # Make sure we have a configuration
 
