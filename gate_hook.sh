@@ -45,7 +45,7 @@ export DEVSTACK_LOCAL_CONFIG+="
 enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas
 "
 export DEVSTACK_LOCAL_CONFIG+="
-enable_plugin a10-neutron-lbaas https://github.com/a10networks/a10-neutron-lbaas"
+enable_plugin a10networks https://github.com/a10networks/a10-neutron-lbaas"
 
 # bash -x $BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/gate_hook.sh "$1" "$2"
 bash -x $GATE_DEST/devstack-gate/devstack-vm-gate.sh
