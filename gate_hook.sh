@@ -34,7 +34,7 @@ export ENABLED_SERVICES
 # fi
 
 # That's (probably) not a typo. Bug in devstack interpreting env vars?
-export OVERRIDE_A10_NEUTRON_LBAAS_GIT_BASE="http://github.com"
+export OVERRIDE_A0_NEUTRON_LBAAS_GIT_BASE="http://github.com"
 export DEVSTACK_LOCAL_CONFIG+="
 FORCE=yes
 "
