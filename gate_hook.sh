@@ -32,6 +32,9 @@ export ENABLED_SERVICES
 # service_provider=LOADBALANCER:A10Networks:neutron_lbaas.services.loadbalancer.drivers.a10networks.driver_v1.ThunderDriver:default
 # EOF
 # fi
+
+# That's (probably) not a typo. Bug in devstack interpreting env vars?
+export OVERRIDE_A10_NEUTRON_LBAAS_GIT_BASE="http://github.com"
 export DEVSTACK_LOCAL_CONFIG+="
 FORCE=yes
 "
