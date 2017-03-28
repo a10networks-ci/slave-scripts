@@ -52,7 +52,7 @@ set -e
 AXAPI_VERSION=${AXAPI_VERSION:-2.1}
 AXAPI_ID=$(cat ~/.a10-instance-id)
 AXAPI_HOST=$(curl "http://10.48.1.51/cgi-bin/a10-vm?ipaddress&id=$AXAPI_ID")
-
+export A10_DEVICE_HOST=${AXAPI_HOST:-needstobeset}
 # echo "Writing private config.py"
 # sudo mkdir -p /etc/a10
 # sudo chmod a+rwx /etc/a10
