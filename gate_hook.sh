@@ -2,15 +2,20 @@
 
 GATE_DEST=$BASE/new
 DEVSTACK_PATH=$GATE_DEST/devstack
-
+ENABLED_SERVICES=""
 testenv=${2:-"apiv2"}
 if [ "$1" = "lbaasv1" ]; then
     testenv="apiv1"
+    ENABLED_SERVICES+="a10-lbaasv1"
+    echo "enabled a10-lbaasv1"
+
 elif [ "$1" = "lbaasv2" ]; then
     testenv="apiv2"
+    ENABLED_SERVICES+="a10-lbaasv2"
+    echo "enabled a10-lbaasv2"
 fi
 
-ENABLED_SERVICES="-c-api,-c-bak,-c-sch,-c-vol,-cinder"
+ENABLED_SERVICES+="-c-api,-c-bak,-c-sch,-c-vol,-cinder"
 ENABLED_SERVICES+=",-s-account,-s-container,-s-object,-s-proxy"
 if [ "$testenv" != "apiv1" ]; then
   ENABLED_SERVICES+=",q-lbaasv2,-q-lbaas"
