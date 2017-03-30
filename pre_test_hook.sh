@@ -52,23 +52,3 @@ set -e
 AXAPI_VERSION=${AXAPI_VERSION:-2.1}
 AXAPI_ID=$(cat ~/.a10-instance-id)
 AXAPI_HOST=$(curl "http://10.48.1.51/cgi-bin/a10-vm?ipaddress&id=$AXAPI_ID")
-export A10_DEVICE_HOST=${AXAPI_HOST:-needstobeset}
-# echo "Writing private config.py"
-# sudo mkdir -p /etc/a10
-# sudo chmod a+rwx /etc/a10
-# cat - > /etc/a10/config.py <<EOF
-# devices = {
-#     "ax1": {
-#         "host": "$AXAPI_HOST",
-#         "username": "admin",
-#         "password": "a10",
-#         "port": 443,
-#         "api_version": "$AXAPI_VERSION",
-#         "v_method": "adp",
-#     },
-# }
-# EOF
-# 
-# if [ -n "$A10_USE_DATABASE" ]; then
-#     echo "use_database = True" >> /etc/a10/config.py
-# fi

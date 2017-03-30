@@ -22,21 +22,9 @@ if [ "$testenv" != "apiv1" ]; then
 fi
 export ENABLED_SERVICES
 
-# if [ "$testenv" = "apiv2" ]; then
-#     cat > $DEVSTACK_PATH/local.conf <<EOF
-# [[post-config|\$NEUTRON_LBAAS_CONF]]
-
-# [service_providers]
-# service_provider=LOADBALANCERV2:A10Networks:neutron_lbaas.drivers.a10networks.driver_v2.ThunderDriver:default
-# EOF
-# else
-#     cat > $DEVSTACK_PATH/local.conf <<EOF
-# [[post-config|\$NEUTRON_LBAAS_CONF]]
-
-# [service_providers]
-# service_provider=LOADBALANCER:A10Networks:neutron_lbaas.services.loadbalancer.drivers.a10networks.driver_v1.ThunderDriver:default
-# EOF
-# fi
+AXAPI_ID=$(cat ~/.a10-instance-id)
+AXAPI_HOST=$(curl "http://10.48.1.51/cgi-bin/a10-vm?ipaddress&id=$AXAPI_ID")
+export A10_DEVICE_HOST=$AXAPI_HOST
 
 export DEVSTACK_LOCAL_CONFIG+="
 FORCE=yes
@@ -47,5 +35,10 @@ enable_plugin neutron-lbaas https://git.openstack.org/openstack/neutron-lbaas
 export DEVSTACK_LOCAL_CONFIG+="
 enable_plugin a10-neutron-lbaas https://github.com/a10networks/a10-neutron-lbaas master
 "
+
+export DEVSTACK_LOCAL_CONFIG+="
+A10_DEVICE_HOST=$AXAPI_HOST
+"
+
 # bash -x $BASE/new/neutron-lbaas/neutron_lbaas/tests/contrib/gate_hook.sh "$1" "$2"
 bash -x $GATE_DEST/devstack-gate/devstack-vm-gate.sh
